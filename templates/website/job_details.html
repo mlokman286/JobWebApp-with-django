@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block content %}
+<section class="container">
+    <div class="p-5 mb-4 bg-light rounded">
+        <h2 class="display-5 fw-bold">{{job.title}}</h2>
+        <p class="col-md-8 fs-5 mt-3">
+            {{job.location}} | Remote | BDT#{{job.salary|intcomma}}
+        </p>
+        <p>Published {{job.published}} | <span class="text-danger">DeadLine: {{job.deadline}}</span> </p>
+        {% if has_applied == False %}
+            {% if job.is_available %}
+                {% if not request.user.is_recruiter %}
+                    <a href="{% url "apply-to-job" job.id %}" class="btn btn-success btn-lg">Apply Now</a>
+                {% endif %}
+            {% else %}
+                <p class="text-danger">Sorry! This job circuler has been expired. It's not avialable</p>
+            {% endif %}
+        {% else %}
+            <p class="badge bg-success p-3">You already applied for this Job</p>
+        {% endif %}
+    </div>
+    <div>
+        <div>
+            <h2 class='text-decoration-underline '>Job Description</h2>
+            <div>{{job.requirements|safe}}</div>
+        </div>
+    </div>
+    <div>
+        <div>
+            <h2 class='text-decoration-underline '>Ideal Candidate:</h2>
+            <div>{{job.ideal_candidate|safe}}</div>
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Other Details</h5>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ipsam distinctio in exercitationem placeat accusamus quam officiis error voluptatum eum.</p>
+                </div>
+                <div class="card-footer"><small class="text-muted">Created {{job.published|naturaltime|naturalday}}</small></div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">About The Company</h5>
+                    <p class="card-text text-muted">{{job.company.name}}</p>
+                    <p class="card-text">Etasbilshed{{job.company.city}},{{job.company.state}}</p>
+                    <p class="card-text">Location: {{job.company.est_date}}</p>
+                </div>
+                <div class="card-footer"><small class="text-muted">Created {{job.published|naturaltime|naturalday}}</small></div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Related Jobs</h5>
+                    <p class="card-text text-muted">{{job.company}}</p>
+                    <p class="card-text">{{job.location}}</p>
+                </div>
+                <div class="card-footer"><small class="text-muted">Created {{job.published|naturaltime|naturalday}}</small></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

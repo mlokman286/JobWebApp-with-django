@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container">
+    <h1>{{request.user.resume.first_name}} {{request.user.resume.surname}} </h1>
+</section>
+{% endblock content %}

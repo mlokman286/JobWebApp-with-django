@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+ {% block content %}
+ {% if request.user.is_applicant %}
+
+ <section>
+    {% if not request.user.has_resume %}
+    <div class="alert alert-danger">
+        <p>You don't have a resume. Please create resume <a class='text-info' href="{% url "updateresume" %}">Here</a></p>
+    </div>
+    {% endif %}
+    {% include "messages.html" %}
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid p-5">
+            <h1 class="display-5 fw-bold">welcome to django jobs</h1>
+            <p class="col-md-8 fs-4">Applicant dashboard</p>
+            {% if request.user.has_resume %}
+            Welcome <a href="{% url "resume_detail" request.user.resume.id %}" class="text-muted">{{request.user.resume.surname}}</a>
+            {% endif %}
+        </div>
+    </div>
+ </section>
+
+ {% elif request.user.is_recruiter %}
+ 
+ <section>
+    {% if not request.user.has_company %}
+    <div class="alert alert-danger">
+        <p>You don't have a commpany. Please create compnay <a class='text-info' href="{% url "updatecompany" %}">Here</a></p>
+    </div>
+    {% endif %}
+    {% include "messages.html" %}
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid p-5">
+            <h1 class="display-5 fw-bold">Welcome to django jobs</h1>
+            <p class="col-md-8 fs-4">Recruiter Dasboard</p>
+            {% if request.user.has_company %}
+            <a href="{% url "company_detail" request.user.company.id %}" class="text-muted">{{request.user.company.name}}</a>
+            {% endif %}
+        </div>
+    </div>
+ </section>
+
+ {% endif %}
+ {% endblock content %}

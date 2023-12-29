@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<section class="container">
+    {% include "messages.html" %}
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h2 class="display-5 fw-bold"></h2>
+            <div class="card">
+                <div class="card-body">
+                    <form action="" class="row gy-2 gx-3 align-item-center">
+                        <div class="col-sm-2">
+                            <label for="" class="visually-hidden">Name</label>
+                            <input type="text" class="form-control" placeholder='Enter job title'>
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="" class="visually-hidden">Select Location</label>
+                            <select name="" id="" class="form-select">
+                                <option selected>Select</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="" class="visually-hidden">Chodse job type</label>
+                            <select name="" id="" class="form-select">
+                                <option selected>Select</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="" class="visually-hidden">Select Industry</label>
+                            <select name="" id="" class="form-select">
+                                <option selected>Select</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="col-auto"><button class="btn  btn-primary" type="submit">Search</button></div>
+                    </form>
+                </div>
+            </div>
+            <p>Welcome to django job portal serach and get your dream job. We have thousands of jobs offering for your.
+                Don't forget to leave a like when you get a job. Good Luck with your job hunt !</p>
+            <button class="btn btn-outline-primary">More Jobs</button>
+        </div>
+    </div>
+
+    <div>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for job in jobs %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{job.title}}</h5>
+                        <p class="card-text text-muted">{{job.company}}</p>
+                        <p class="card-text">{{job.location}}</p>
+                        <p class="card-text">Salary: {{job.salary}}</p>
+                        <a class='btn btn-primary' href="{% url "job_details" job.id %}">View Details</a>
+                    </div>
+                    <div class="card-footer"><small class="text-muted">Created {{job.published|naturaltime|naturalday}}</small></div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-md-10 mx-auto col-lg-2 mt-4">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item"><a href="" class="page-link">Previous</a></li>
+                    <li class="page-item"><a href="" class="page-link">1</a></li>
+                    <li class="page-item"><a href="" class="page-link">2</a></li>
+                    <li class="page-item"><a href="" class="page-link">3</a></li>
+                    <li class="page-item"><a href="" class="page-link">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+{% endblock content %}
