@@ -1,11 +1,13 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from job.models import ApplyJob, Job
+from website.filter import JobFilter
 
 # Create your views here.
 def home(request):
-    jobs = Job.objects.all().order_by('-id')
-    context={'jobs':jobs}
+    filter = JobFilter(request.GET, queryset = Job.objects.filter(is_available = True).order_by('-published'))
+    # jobs = Job.objects.all().order_by('-id')
+    context={'filter':filter}
     return render(request,'website/home.html',context)
 
 def job_list(request):
@@ -29,3 +31,8 @@ def job_details(request,id):
     else:
         messages.warning(request,'Login first then continue again !')
         return redirect('login')
+    
+def job_search(request):
+    query= request.GET['search']
+    jobs = Job.objects.filter(title__icontains = query)
+    return render(request,'website/joblist.html',{'jobs':jobs})

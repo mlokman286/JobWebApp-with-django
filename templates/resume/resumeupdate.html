@@ -7,7 +7,8 @@
             <div class="card mx-auto" style='width:40rem'>
                 <div class="card-body">
                     <h5 class="card-title mb-3">Create your Resume</h5>
-                    <form action="" method="post">
+                    
+                    <form action="" method="post" enctype='multipart/form-data'>
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="">First Name</label>
@@ -22,8 +23,12 @@
                             {% render_field form.loaction class='form-control' %}
                         </div>
                         <div class="mb-3">
-                            <label for="">Job Title</label>
+                            <label for="">Job Title / Profession</label>
                             {% render_field form.job_title class='form-control' %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Upload Resume(pdf)</label>
+                            {% render_field form.resume class='form-control' %}
                         </div>
                         <input type="submit" class='btn btn-success' value="Create"> 
                     </form>

@@ -82,7 +82,7 @@ def apply_to_job(request,id):
     else:
         messages.warning(request,"Permission denied! You Don't have a resume")
         return redirect('home')
-    
+@login_required
 def all_applicants(request,id):
     job=Job.objects.get(id=id)
     applicants = ApplyJob.objects.filter(job=job)
@@ -91,3 +91,8 @@ def all_applicants(request,id):
         'job':job
     }
     return render(request,'job/all_applicants.html',context)
+
+@login_required
+def applied_job(request):
+    jobs = ApplyJob.objects.filter(user=request.user)
+    return render(request,'job/applied_job.html',{'jobs':jobs})

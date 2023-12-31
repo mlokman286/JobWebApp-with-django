@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url "job_list" %}">All Jobs</a>
+          <a class="nav-link active" aria-current="page" href="{% url "home" %}">Home</a>
         </li>
 
         {% if request.user.is_authenticated %}
@@ -21,16 +21,19 @@
           {% else %}
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="">Apply for jobs</a>
+            <a class="nav-link active" aria-current="page" href="{% url "job_list" %}">Apply for jobs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url "applied_job" %}">Applied jobs</a>
           </li>
           {% endif %}
         {% endif %}
         {% comment %} only for Recruiter {% endcomment %}
         {% if request.user.is_recruiter %}
           {% if not request.user.has_company %}
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url "updatecompany" %}">Create Company</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url "updatecompany" %}">Create Company</a>
+            </li>
           {% else %}
 
           <li class="nav-item">
@@ -45,29 +48,32 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {% if request.user.has_resume %}
-            {{request.user.resume.first_name}} {{request.user.resume.surname}}
+              {{request.user.resume.first_name}} {{request.user.resume.surname}}
             {% else %}
-            {{request.user.email}}
+              {{request.user.email}}
             {% endif %}
           </a>
 
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             {% if request.user.is_applicant %}
-            {% if request.user.has_resume %}
-            <li><a class="dropdown-item" href="#">apply for jobs</a></li>
-            <li><a class="dropdown-item" href="{% url "updateresume" %}">update Resume</a></li>
-            {% else %}
-            <li><a class="dropdown-item" href="{% url "updateresume" %}">Create Resume</a></li>
-            {% endif %}
+              {% if request.user.has_resume %}
+              <li><a class="dropdown-item" href="#">apply for jobs</a></li>
+              <li><a class="dropdown-item"  href="{% url "applied_job" %}">Applied jobs</a></li>
+              
+              <li><a class="dropdown-item" href="{% url "updateresume" %}">update Resume</a></li>
+              {% else %}
+              <li><a class="dropdown-item" href="{% url "updateresume" %}">Create Resume</a></li>
+  
+              {% endif %}
             {% endif %}
             {% if request.user.is_recruiter %}
-            {% if request.user.has_company %}
-            <li><a class="dropdown-item" href="{% url "create_job" %}">Create Job</a></li>
-            <li><a class="dropdown-item" href="{% url "updatecompany" %}">update Company</a></li>
-            {% else %}
-            <li><a class='dropdown=item' href="{% url "updatecompany" %}">Create Company</a></li>
-            {% endif %}
+              {% if request.user.has_company %}
+              <li><a class="dropdown-item" href="{% url "create_job" %}">Create Job</a></li>
+              <li><a class="dropdown-item" href="{% url "updatecompany" %}">update Company</a></li>
+              {% else %}
+              <li><a class='dropdown=item' href="{% url "updatecompany" %}">Create Company</a></li>
+              {% endif %}
             {% endif %}
             <li>
               <hr class="dropdown-divider">
@@ -79,8 +85,8 @@
       </ul>
 
       <div class='d-flex justify-content-between gap-3 '>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="d-flex" role="search" action='{% url "search" %}'>
+          <input class="form-control me-2" name='search' type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <div class="nav-item">

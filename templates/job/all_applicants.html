@@ -25,7 +25,7 @@
                         <td>{{applicant.user.resume.job_title}}</td>
                         <td>{{applicant.user.email}}</td>
                         <td>{{applicant.applied_time}}</td>
-                        <td><a href="">Download Resume</a></td>
+                        <td><a target='_blank' href="{{applicant.user.resume.resume.url}}">Download Resume</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -10,6 +10,7 @@ class Resume(models.Model):
     location = models.CharField(max_length=100, null=True, blank=True)
     job_title = models.CharField(max_length=100, null=True, blank=True)
     #insert cv
+    resume= models.FileField(upload_to='resume',null=True,blank=True)
 
     def __str__(self):
         return f'{self.first_name} {self.surname}'

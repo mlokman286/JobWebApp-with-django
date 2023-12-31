@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     'resume',
     'users',
     'website',
+
     'widget_tweaks',
     'ckeditor',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +132,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_DIRS = BASE_DIR / 'static'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT= 'media'
+
 # CKEDITOR FILE MANGING AREA
 CKEDITOR_CONFIGS = {
     'default':{
@@ -145,7 +150,7 @@ CKEDITOR_UPLOAD_PATH = 'static/ckeditor/'  # Adjust the path as needed
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL='login'
-LOGIN_REDIRECT_URL ='login'
+LOGIN_REDIRECT_URL ='home'
 
 AUTH_USER_MODEL = 'users.User'
 AUTHTICATION_BACKENDS =['users.backends.EmailBackend']

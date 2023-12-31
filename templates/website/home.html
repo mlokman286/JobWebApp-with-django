@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load humanize %}
+{% load widget_tweaks %}
 {% block content %}
 <section class="container">
     {% include "messages.html" %}
@@ -8,39 +9,23 @@
         <div class="container-fluid py-5">
             <h2 class="display-5 fw-bold"></h2>
             <div class="card">
-                <div class="card-body">
-                    <form action="" class="row gy-2 gx-3 align-item-center">
+                <div class="card-body mx-auto">
+                    <form action="" class="row gy-2 gx-3 align-item-center gap-5 ">
                         <div class="col-sm-2">
                             <label for="" class="visually-hidden">Name</label>
-                            <input type="text" class="form-control" placeholder='Enter job title'>
+                            {% render_field filter.form.title class="form-control" placeholder='Enter job title' %}
                         </div>
+
                         <div class="col-sm-2">
-                            <label for="" class="visually-hidden">Select Location</label>
-                            <select name="" id="" class="form-select">
-                                <option selected>Select</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                            <label for="" class="visually-hidden ">Select Location</label>
+                            {% render_field filter.form.location class="form-control" placeholder='Enter location title' %}
                         </div>
+
                         <div class="col-sm-2">
-                            <label for="" class="visually-hidden">Chodse job type</label>
-                            <select name="" id="" class="form-select">
-                                <option selected>Select</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                            <label for="" class="visually-hidden ">Chodse job type</label>
+                            {% render_field filter.form.job_type  class="form-control" %}
                         </div>
-                        <div class="col-sm-2">
-                            <label for="" class="visually-hidden">Select Industry</label>
-                            <select name="" id="" class="form-select">
-                                <option selected>Select</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
+                       
                         <div class="col-auto"><button class="btn  btn-primary" type="submit">Search</button></div>
                     </form>
                 </div>
@@ -50,10 +35,10 @@
             <button class="btn btn-outline-primary">More Jobs</button>
         </div>
     </div>
-
+            {% comment %} Featured Job section {% endcomment %}
     <div>
         <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for job in jobs %}
+        {% for job in filter.qs %}
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
@@ -69,6 +54,7 @@
         {% endfor %}
         </div>
     </div>
+
     <div class="row align-items-center">
         <div class="col-md-10 mx-auto col-lg-2 mt-4">
             <nav>
