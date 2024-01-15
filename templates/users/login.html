@@ -19,10 +19,9 @@
                 <button type="submit" class="w-100 btn btn-lg btn-primary">Sign In</button>
                 <hr class="my-4">
                 {% comment %} <small class="text-muted">By clicking sign up , you are agree to terms of use</small> {% endcomment %}
-                <small class="text-muted">Don't have any account?<br>
-                    <a href="{% url "register_applicant" %}">Sign up as <span class="fw-bolder">Applicant</span></a></small> or
-                    <a href="{% url "register_recruiter" %}">Sign up as <span class="fw-bolder">Recruiter</span></a>
-            </form>
+                <small class="text-muted">Don't have any account?
+                    <a class='fs-6 fw-bolder ' href="{% url "register" %}">Create</a>
+             </form>
         </div>
             
 

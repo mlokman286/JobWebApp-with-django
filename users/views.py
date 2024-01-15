@@ -8,6 +8,9 @@ from .models import User
 from resume.models import Resume
 
 #Register application only
+def register(request):
+    return render(request,'users/register.html')
+
 def register_applicant(request):
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
